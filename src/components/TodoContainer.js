@@ -1,6 +1,8 @@
 import React from "react";
 import TodosList from "./TodosList";
-import Header from "./Header"
+import Header from "./Header";
+import InputTodo from "./InputTodo"
+import { v4 as uuidv4 } from "uuid"
 
 
 class TodoContainer extends React.Component {
@@ -8,17 +10,17 @@ class TodoContainer extends React.Component {
         // shared data; this file is the closest common parent
         todos: [
             {
-                id: 1,
+                id: uuidv4(),
                 title: "Setup development environment",
                 completed: true
             },
             {
-                id: 2,
+                id: uuidv4(),
                 title: "Develop website and add content",
                 completed: false
             },
             {
-                id: 3,
+                id: uuidv4(),
                 title: "Deploy to live server",
                 completed: false
             }
@@ -30,7 +32,7 @@ class TodoContainer extends React.Component {
             todos: this.state.todos.map(todo => {
                 if (todo.id === id) {
                     return {
-                        ...todo,
+                        ...todo, // spread operator
                         completed: !todo.completed,
                     }
                 }
@@ -39,13 +41,37 @@ class TodoContainer extends React.Component {
         }));
     };
 
+    delTodo = id => {
+        this.setState({
+            todos: [
+                ...this.state.todos.filter(todo => {
+                    return todo.id !== id;
+                })
+            ]
+        })
+    }
+
+    addTodoItem = title => {
+        const newTodo = {
+            id: uuidv4(),
+            title: title,
+            completed: false
+        };
+        this.setState({
+            todos: [...this.state.todos, newTodo]
+        });
+    };
+
     render() {
         return (
+            // define various properties/props that can be accessed elsewhere
             <div>
                 <Header />
+                <InputTodo addTodoProps={this.addTodoItem}/>
                 <TodosList 
                     todos={this.state.todos} 
-                    handleChangeProps={this.handleChange()}
+                    handleChangeProps={this.handleChange}
+                    deleteTodoProps={this.delTodo}
                 />
             </div>
         );
