@@ -27,7 +27,7 @@ class InputTodo extends Component {
 
     render() {
         return (
-            <form onSubmit={this.handleSubmit} className="form-container>
+            <form onSubmit={this.handleSubmit} className="form-container">
                 <input 
 					type="text" 
 					className="input-text"

@@ -5,7 +5,7 @@ function Header() {
 
 	const headerStyle = {
 		padding: "20px 0",
-		lineHeight = "1.5em",
+		lineHeight: "1.5em",
 	}
 
     return (
