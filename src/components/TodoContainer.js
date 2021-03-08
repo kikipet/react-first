@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react"
+import { v4 as uuidv4 } from "uuid"
+import { Route, Switch } from "react-router-dom"
 import Header from "./Header"
 import TodosList from "./TodosList"
-import InputTodo from "./InputTodo";
-import { v4 as uuidv4 } from "uuid"
+import InputTodo from "./InputTodo"
+import About from "../pages/About"
+import NotMatch from "../pages/NotMatch"
+import Navbar from "./Navbar"
 
 
 const TodoContainer = () => {
@@ -63,18 +67,31 @@ const TodoContainer = () => {
 
     return (
         // define various properties/props that can be accessed elsewhere
-        <div className="container">
-            <div className="inner">
-                <Header />
-                <InputTodo addTodoProps={addTodoItem}/>
-                <TodosList 
-                    todos={todos} 
-                    handleChangeProps={handleChange}
-                    deleteTodoProps={delTodo}
-                    setUpdate={setUpdate}
-                />
-            </div>
-        </div>
+        <>
+            <Navbar />
+            <Switch>
+                <Route exact path="/">
+                    <div className="container">
+                        <div className="inner">
+                            <Header />
+                            <InputTodo addTodoProps={addTodoItem}/>
+                            <TodosList 
+                                todos={todos} 
+                                handleChangeProps={handleChange}
+                                deleteTodoProps={delTodo}
+                                setUpdate={setUpdate}
+                            />
+                        </div>
+                    </div>
+                </Route>
+                <Route path="/about">
+                    <About />
+                </Route>
+                <Route path="*">
+                    <NotMatch />
+                </Route>
+            </Switch>
+        </>
     )
 }
 

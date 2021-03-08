@@ -64,6 +64,11 @@ body {
 	border: none;
 }
 
+.active-link {
+	color: orangered;
+	text-decoration: underline;
+}
+
 .App {
   text-align: center;
 }
